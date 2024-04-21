@@ -1,5 +1,18 @@
-use std::{char, io};
-
+/* use crossterm::{
+    event::{self, KeyCode, KeyEventKind},
+    terminal::{disable_raw_mode, enable_raw_mode, EnterAlternateScreen, LeaveAlternateScreen},
+    ExecutableCommand,
+};
+use ratatui::{
+    prelude::{CrosstermBackend, Stylize, Terminal},
+    widgets::Paragraph,
+}; */
+use std::{
+    char,
+    io::{stdin, stdout, Result},
+};
+// TODO Need to replace main with this for Ratatui
+// fn main() -> Result<()> {
 fn main() {
     println!("Welcome to Hangman!");
 
@@ -10,7 +23,7 @@ fn main() {
         let mut phrase_to_guess: String = String::new();
 
         //  Read terminal input
-        io::stdin()
+        stdin()
             .read_line(&mut phrase_to_guess)
             .expect("Failed to read terminal input!");
 
@@ -21,7 +34,7 @@ fn main() {
             println!("Please enter a letter to guess:");
             let mut letter_to_guess: String = String::new();
 
-            io::stdin()
+            stdin()
                 .read_line(&mut letter_to_guess)
                 .expect("Failed to read line!");
 
@@ -39,4 +52,6 @@ fn main() {
             }
         }
     }
+    // TODO Needed for Ratatui
+    //Ok(())
 }
