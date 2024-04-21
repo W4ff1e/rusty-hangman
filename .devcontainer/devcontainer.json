@@ -1,0 +1,51 @@
+{
+    // Premade image:
+    "image": "mcr.microsoft.com/devcontainers/rust:latest",
+    //"build": {
+    //    "dockerfile": "./Dockerfile",
+    //    "context": "."
+    //},
+    "features": {
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "true",
+            "username": "vscode",
+            "userUid": "1000",
+            "userGid": "1000",
+            "upgradePackages": "true"
+        },
+        "ghcr.io/devcontainers/features/rust:1": "latest",
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "rust-lang.rust-analyzer",
+                "aaron-bond.better-comments",
+                "usernamehw.errorlens",
+                "mkxml.vscode-filesize",
+                "GitHub.codespaces",
+                "GitHub.vscode-pull-request-github",
+                "emilast.LogFileHighlighter",
+                "yzhang.markdown-all-in-one",
+                "shd101wyy.markdown-preview-enhanced",
+                "DavidAnson.vscode-markdownlint",
+                "christian-kohler.path-intellisense",
+                "ZhangYue.rust-mod-generator",
+                "Swellaby.vscode-rust-test-adapter",
+                "ms-vscode.test-adapter-converter",
+                "hbenl.vscode-test-explorer",
+                "vscode-icons-team.vscode-icons",
+                "redhat.vscode-yaml"
+            ]
+        }
+    },
+    // Use 'forwardPorts' to make a list of ports inside the container available locally.
+    // "forwardPorts": [],
+    // Use 'postCreateCommand' to run commands after the container is created.
+    // "postCreateCommand": "rustc --version",
+    // Set `remoteUser` to `root` to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+    "remoteUser": "vscode"
+}
