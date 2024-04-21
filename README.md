@@ -1,4 +1,4 @@
-# Hang Man Game
+# HangMan Game
 
 A terminal hangman game made using Ratatui. Inspired from a random Youtube Video and [word lists from: MIT](https://www.mit.edu/~ecprice/wordlist.10000)
 
