@@ -1,8 +1,9 @@
 #![cfg_attr(not(debug_assertions), windows_subsystem = "windows")] // hide console window on Windows in release
 
-use std::{char, io::stdin};
-
+// use std::{char, io::stdin};
+mod hangmangame;
 use eframe::egui;
+use hangmangame::HangmanGameState;
 
 fn main() {
     env_logger::init(); // Log to stderr (if you run with `RUST_LOG=debug`).
@@ -16,8 +17,10 @@ fn main() {
         "HangmanApp",
         options,
         Box::new(|cc| Box::new(HangmanApp::new(cc))),
-    );
-    println!("Welcome to Hangman!");
+    )
+    .unwrap();
+
+    /* println!("Welcome to Hangman!");
 
     loop {
         println!("Please enter your phrase: ");
@@ -54,31 +57,71 @@ fn main() {
                 }
             }
         }
-    }
-    // TODO Needed for Ratatui
-    //Ok(())
+    } */
 }
 
 #[derive(Default)]
+/// Represents a Hangman application.
 struct HangmanApp {
+    game_state: HangmanGameState,
     show_confirmation_dialog: bool,
     allowed_to_close: bool,
+    input_text: String,
+    submitted_text: String,
 }
 
 impl HangmanApp {
-    fn new(cc: &eframe::CreationContext<'_>) -> Self {
+    fn new(_cc: &eframe::CreationContext<'_>) -> Self {
         // Customize egui here with cc.egui_ctx.set_fonts and cc.egui_ctx.set_visuals.
         // Restore app state using cc.storage (requires the "persistence" feature).
         // Use the cc.gl (a glow::Context) to create graphics shaders and buffers that you can use
         // for e.g. egui::PaintCallback.
-        Self::default()
+        Self::default();
+        Self {
+            game_state: HangmanGameState::new("Test".to_string()),
+            show_confirmation_dialog: false,
+            allowed_to_close: false,
+            input_text: String::new(),
+            submitted_text: String::new(),
+        }
     }
 }
 
+/// Implementation of the `eframe::App` trait for the `HangmanApp` struct.
 impl eframe::App for HangmanApp {
-    fn update(&mut self, ctx: &egui::Context, frame: &mut eframe::Frame) {
+    /// Updates the application state and renders the user interface.
+    ///
+    /// # Arguments
+    ///
+    /// * `ctx` - The `egui::Context` used for rendering the UI.
+    /// * `frame` - The `eframe::Frame` used for displaying the UI.
+    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
             ui.heading("Hangman Game!");
+
+            ui.horizontal(|ui| {
+                ui.label("Enter a letter:");
+                ui.add_sized(
+                    egui::Vec2::new(30.0, 25.0),
+                    egui::TextEdit::singleline(&mut self.input_text),
+                );
+                if self.input_text.len() > 1 {
+                    self.input_text.truncate(1);
+                }
+                if ui.button("Guess").clicked() {
+                    if let Some(letter) = self.input_text.chars().next() {
+                        self.submitted_text = letter.to_string();
+                        self.input_text.clear();
+                    }
+                }
+            });
+
+            if !self.submitted_text.is_empty() {
+                ui.label(format!("Guessed letter: {}", self.submitted_text));
+                if let Some(letter) = self.submitted_text.chars().next() {
+                    self.game_state.guessed_letters.push(letter);
+                }
+            }
         });
 
         if ctx.input(|i| i.viewport().close_requested()) {
