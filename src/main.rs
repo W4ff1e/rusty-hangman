@@ -210,7 +210,7 @@ impl eframe::App for HangmanApp {
                 ui.label(format!(
                     "Guesses Left: {}",
                     self.game_state.difficulty - self.game_state.incorrect_guess_count
-                18198));
+                ));
                 ui.label(format!("Difficulty: {}", self.game_state.difficulty));
                 ui.label(format!("Game over: {}", self.game_state.game_over));
                 ui.label(format!("Win: {}", self.game_state.win));
