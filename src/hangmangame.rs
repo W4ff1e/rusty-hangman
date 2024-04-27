@@ -5,6 +5,8 @@ use std::io::{self};
 pub struct HangmanGameState {
     /// The phrase to guess in the Hangman game.
     pub phrase_to_guess: String,
+    // The phrase to guess but with the characters replaced with underscores.
+    pub obfuscated_phrase: String,
     /// The characters to guess in the Hangman game.
     pub chars_to_guess: Vec<char>,
     /// The letters that have been guessed in the Hangman game.
@@ -25,6 +27,7 @@ impl Default for HangmanGameState {
     fn default() -> Self {
         Self {
             phrase_to_guess: String::new(),
+            obfuscated_phrase: String::new(),
             chars_to_guess: Vec::new(),
             guessed_letters: Vec::new(),
             incorrect_guess_count: 0,
@@ -45,6 +48,7 @@ impl HangmanGameState {
     pub fn new(phrase_to_guess: String) -> Self {
         HangmanGameState {
             phrase_to_guess: phrase_to_guess.clone(),
+            obfuscated_phrase: String::new(),
             chars_to_guess: phrase_to_guess.chars().collect(),
             guessed_letters: Vec::new(),
             incorrect_guess_count: 0,
@@ -91,6 +95,25 @@ impl HangmanGameState {
         Ok(random_word)
     }
 
+    pub fn obfuscate_phrase(&mut self) {
+        let mut obfuscated_phrase = String::new();
+
+        for c in self.chars_to_guess.iter() {
+            if self.guessed_letters.contains(c) {
+                obfuscated_phrase.push(*c);
+                obfuscated_phrase.push(' ');
+            } else if c.is_whitespace() {
+                obfuscated_phrase.push(*c);
+                obfuscated_phrase.push(' ');
+            } else {
+                obfuscated_phrase.push('_');
+                obfuscated_phrase.push(' ');
+            }
+        }
+
+        self.obfuscated_phrase = obfuscated_phrase;
+    }
+
     /// Generate a random phrase to guess in the hangman game.
     ///
     /// # Arguments
@@ -111,6 +134,8 @@ impl HangmanGameState {
 
         // Update the phrase to guess with the generated phrase
         self.phrase_to_guess = phrase;
+        // Reobfuscate the phrase
+        self.obfuscate_phrase();
     }
 
     /// Update the guess phrase in the hangman game.
@@ -124,6 +149,7 @@ impl HangmanGameState {
         let phrase = phrase.to_uppercase();
         self.chars_to_guess = phrase.chars().collect();
         self.phrase_to_guess = phrase;
+        self.obfuscate_phrase();
     }
 
     #[allow(dead_code)]
@@ -146,7 +172,7 @@ impl HangmanGameState {
 
         // Add the guessed letter to the list of guessed letters
         self.guessed_letters.push(guess);
-
+        self.obfuscate_phrase();
         // Check if the guessed letter is in the phrase
         if self.chars_to_guess.contains(&guess) {
             // Check if all the characters in the phrase have been guessed

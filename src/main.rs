@@ -143,6 +143,7 @@ impl eframe::App for HangmanApp {
                             ],
                             egui::Stroke::new(2.0, egui::Color32::WHITE),
                         );
+                        // ui.add_space(450.0);
                     });
                 });
             });
@@ -206,6 +207,10 @@ impl eframe::App for HangmanApp {
                 ui.label(format!(
                     "Chars to guess: {:?}",
                     self.game_state.chars_to_guess
+                ));
+                ui.label(format!(
+                    "Obfuscated phrase: {}",
+                    self.game_state.obfuscated_phrase
                 ));
                 ui.label(format!("Submitted Text: {}", self.submitted_text));
                 ui.label(format!("Input Text: {}", self.input_text));
