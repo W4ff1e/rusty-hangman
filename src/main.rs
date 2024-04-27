@@ -27,11 +27,11 @@ fn main() {
 #[derive(Default)]
 /// Represents a Hangman application.
 struct HangmanApp {
-    game_state: HangmanGameState,
-    show_confirmation_dialog: bool,
-    allowed_to_close: bool,
-    input_text: String,
-    submitted_text: String,
+    game_state: HangmanGameState,   // The current state of the Hangman game
+    show_confirmation_dialog: bool, // Flag indicating whether the exit confirmation dialog should be shown
+    allowed_to_close: bool,         // Flag indicating whether the application is allowed to close
+    input_text: String,             // The text entered by the user as input for guessing
+    submitted_text: String,         // The text submitted by the user/program as a guess
 }
 
 impl HangmanApp {
@@ -94,13 +94,59 @@ impl eframe::App for HangmanApp {
                         });
                     });
                 });
-                ui.add_space(ui.available_size_before_wrap().x * 0.75);
+                // ui.add_space(ui.available_size_before_wrap().x * 0.50);
                 ui.vertical(|ui| {
-                    egui::Frame::dark_canvas(ui.style())
-                        .show(ui, |ui| ui.label("hangman dude goes here"));
+                    egui::Frame::dark_canvas(ui.style()).show(ui, |ui| {
+                        let max_rect = ui.max_rect();
+                        // Allocate a painter
+                        // Allocate a painter
+                        let (response, painter) =
+                            ui.allocate_painter(max_rect.size(), egui::Sense::hover());
+
+                        // Head
+                        painter.circle_filled(
+                            response.rect.center() + egui::Vec2::new(0.0, -70.0),
+                            20.0,
+                            egui::Color32::WHITE,
+                        );
+
+                        // Body
+                        painter.line_segment(
+                            [
+                                response.rect.center() + egui::Vec2::new(0.0, -50.0),
+                                response.rect.center() + egui::Vec2::new(0.0, -10.0),
+                            ],
+                            egui::Stroke::new(2.0, egui::Color32::WHITE),
+                        );
+
+                        // Arms
+                        painter.line_segment(
+                            [
+                                response.rect.center() + egui::Vec2::new(-20.0, -30.0),
+                                response.rect.center() + egui::Vec2::new(20.0, -30.0),
+                            ],
+                            egui::Stroke::new(2.0, egui::Color32::WHITE),
+                        );
+
+                        // Legs
+                        painter.line_segment(
+                            [
+                                response.rect.center() + egui::Vec2::new(-10.0, -10.0),
+                                response.rect.center() + egui::Vec2::new(-10.0, 10.0),
+                            ],
+                            egui::Stroke::new(2.0, egui::Color32::WHITE),
+                        );
+                        painter.line_segment(
+                            [
+                                response.rect.center() + egui::Vec2::new(10.0, -10.0),
+                                response.rect.center() + egui::Vec2::new(10.0, 10.0),
+                            ],
+                            egui::Stroke::new(2.0, egui::Color32::WHITE),
+                        );
+                    });
                 });
             });
-            ui.add_space(ui.available_size_before_wrap().y * 0.50);
+            ui.add_space(ui.available_size_before_wrap().y * 0.10);
 
             ui.horizontal(|ui| {
                 ui.label("Enter a letter:");
@@ -109,7 +155,9 @@ impl eframe::App for HangmanApp {
                     egui::TextEdit::singleline(&mut self.input_text),
                 );
                 if self.input_text.len() > 1 {
+                    println!("Input text is too long, truncating...");
                     self.input_text.truncate(1);
+                    println!("Input text after truncation: {}", self.input_text);
                 }
                 if ui.button("Guess").clicked() || ctx.input(|i| i.key_pressed(egui::Key::Enter)) {
                     if let Some(letter) = self.input_text.chars().next() {
