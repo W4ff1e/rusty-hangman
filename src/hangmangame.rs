@@ -1,7 +1,5 @@
 use rand::Rng;
-use std::fs::File;
-use std::io::{self, BufRead, BufReader, Error};
-use std::path::Path;
+use std::io::{self};
 
 /// Struct representing the state of the Hangman game.
 pub struct HangmanGameState {
