@@ -1,32 +1,49 @@
-use include_dir::{include_dir, Dir};
 use rand::Rng;
 use std::fs::File;
 use std::io::{self, BufRead, BufReader, Error};
 use std::path::Path;
 
+/// Struct representing the state of the Hangman game.
 pub struct HangmanGameState {
+    /// The phrase to guess in the Hangman game.
     pub phrase_to_guess: String,
+    /// The characters to guess in the Hangman game.
     pub chars_to_guess: Vec<char>,
+    /// The letters that have been guessed in the Hangman game.
     pub guessed_letters: Vec<char>,
+    /// The count of incorrect guesses in the Hangman game.
     pub incorrect_guess_count: u32,
+    /// The difficulty level of the Hangman game. 4 - 10 Hard, Normal, Easy, Very Easy
     pub difficulty: u32,
+    /// Flag indicating if the game is over.
     pub game_over: bool,
+    /// Flag indicating if the player has won the game.
     pub win: bool,
 }
+
+/// Implement the Default trait for HangmanGameState.
 impl Default for HangmanGameState {
+    /// Create a new instance of HangmanGameState with default values.
     fn default() -> Self {
         Self {
             phrase_to_guess: String::new(),
             chars_to_guess: Vec::new(),
             guessed_letters: Vec::new(),
             incorrect_guess_count: 0,
-            difficulty: 0, // 6 us "normal difficulty" 4 is "hard difficulty" 8 is "easy difficulty", and 10 is "very easy difficulty"
+            difficulty: 0, // 6 is "normal difficulty", 4 is "hard difficulty", 8 is "easy difficulty", and 10 is "very easy difficulty"
             game_over: false,
             win: false,
         }
     }
 }
+
 impl HangmanGameState {
+    /// Create a new instance of HangmanGameState with the given phrase to guess.
+    ///
+    /// # Arguments
+    ///
+    /// * `phrase_to_guess` - The phrase to guess in the Hangman game.
+    ///
     pub fn new(phrase_to_guess: String) -> Self {
         HangmanGameState {
             phrase_to_guess: phrase_to_guess.clone(),
@@ -39,18 +56,30 @@ impl HangmanGameState {
         }
     }
 
+    /// Generate a random word from a file with the specified length.
+    ///
+    /// # Arguments
+    ///
+    /// * `length` - The length of the word to generate.
+    ///
+    /// # Returns
+    ///
+    /// * `Result<String, io::Error>` - The randomly generated word, or an error if no words with the specified length are found.
     pub fn random_word_from_file(&mut self, length: u32) -> Result<String, io::Error> {
         let file_contents = include_str!("../worldlist/wordlist.txt");
         let lines = file_contents.lines();
 
         let mut words = Vec::new();
 
+        // Iterate over each line in the file
         for line in lines {
+            // Check if the line has the specified length
             if line.len() == length as usize {
                 words.push(line.to_string());
             }
         }
 
+        // Check if no words with the specified length are found
         if words.is_empty() {
             return Err(io::Error::new(
                 io::ErrorKind::NotFound,
@@ -58,17 +87,31 @@ impl HangmanGameState {
             ));
         }
 
+        // Generate a random index within the range of the words vector
         let random_word = words[rand::thread_rng().gen_range(0..words.len())].clone();
 
         Ok(random_word)
     }
 
+    /// Generate a random phrase to guess in the hangman game.
+    ///
+    /// # Arguments
+    ///
+    /// * `length` - The length of the phrase to generate.
+    ///
     pub fn random_phrase_to_guess(&mut self, length: u32) {
+        // Get a random word from the file with the specified length
         let phrase = self
             .random_word_from_file(length)
             .expect("Error getting random word from file");
+
+        // Convert the phrase to uppercase
         let phrase = phrase.to_uppercase();
+
+        // Update the characters to guess with the characters from the phrase
         self.chars_to_guess = phrase.chars().collect();
+
+        // Update the phrase to guess with the generated phrase
         self.phrase_to_guess = phrase;
     }
 
@@ -76,7 +119,7 @@ impl HangmanGameState {
     ///
     /// # Arguments
     ///
-    /// * `guess` - The new phrase to guess.
+    /// * `phrase` - The new phrase to guess.
     ///
     #[allow(dead_code)]
     pub fn update_guess_phrase(&mut self, phrase: String) {

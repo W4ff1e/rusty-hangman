@@ -16,5 +16,4 @@ env_logger = { version = "0.11.3", default-features = false, features = [
     "auto-color",
     "humantime",
 ] }
-include_dir = "0.7.3"
 rand = "0.8.5"
