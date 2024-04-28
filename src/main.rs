@@ -17,7 +17,7 @@ fn main() {
     };
 
     eframe::run_native(
-        "HangmanApp",
+        "Rusty Hangman Game!",
         options,
         Box::new(|cc| Box::new(HangmanApp::new(cc))),
     )
@@ -32,6 +32,7 @@ struct HangmanApp {
     allowed_to_close: bool,         // Flag indicating whether the application is allowed to close
     input_text: String,             // The text entered by the user as input for guessing
     submitted_text: String,         // The text submitted by the user/program as a guess
+    ui_debug: bool,                 // Flag indicating whether debug information should be shown
 }
 
 impl HangmanApp {
@@ -47,6 +48,7 @@ impl HangmanApp {
             allowed_to_close: false,
             input_text: String::new(),
             submitted_text: String::new(),
+            ui_debug: false,
         }
     }
 }
@@ -64,7 +66,7 @@ impl eframe::App for HangmanApp {
     /// * `frame` - The `eframe::Frame` used for displaying the UI.
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         egui::CentralPanel::default().show(ctx, |ui| {
-            ui.heading("Hangman Game!");
+            ui.heading("Rusty Hangman Game!");
 
             ui.horizontal(|ui| {
                 ui.vertical(|ui| {
@@ -154,7 +156,8 @@ impl eframe::App for HangmanApp {
                 ui.add_sized(
                     egui::Vec2::new(30.0, 25.0),
                     egui::TextEdit::singleline(&mut self.input_text),
-                );
+                )
+                .request_focus();
                 if self.input_text.len() > 1 {
                     println!("Input text is too long, truncating...");
                     self.input_text.truncate(1);
@@ -166,6 +169,10 @@ impl eframe::App for HangmanApp {
                         self.input_text.clear();
                     }
                 }
+                ui.heading(format!(
+                    "Phrase to guess: {}",
+                    self.game_state.obfuscated_phrase
+                ))
             });
 
             if !self.submitted_text.is_empty() {
@@ -198,39 +205,43 @@ impl eframe::App for HangmanApp {
                 });
             }
             // ! DEBUG CODE AHEAD!!!!
-            ui.vertical(|ui| {
-                ui.label("Debug:");
-                ui.label(format!(
-                    "Phrase to guess: {}",
-                    self.game_state.phrase_to_guess
-                ));
-                ui.label(format!(
-                    "Chars to guess: {:?}",
-                    self.game_state.chars_to_guess
-                ));
-                ui.label(format!(
-                    "Obfuscated phrase: {}",
-                    self.game_state.obfuscated_phrase
-                ));
-                ui.label(format!("Submitted Text: {}", self.submitted_text));
-                ui.label(format!("Input Text: {}", self.input_text));
-                ui.label(format!(
-                    "Guessed letters: {:?}",
-                    self.game_state.guessed_letters
-                ));
-                ui.label(format!(
-                    "Incorrect guess count: {}",
-                    self.game_state.incorrect_guess_count
-                ));
-                ui.label(format!(
-                    "Guesses Left: {}",
-                    self.game_state.difficulty - self.game_state.incorrect_guess_count
-                ));
-                ui.label(format!("Difficulty: {}", self.game_state.difficulty));
-                ui.label(format!("Game over: {}", self.game_state.game_over));
-                ui.label(format!("Win: {}", self.game_state.win));
-            });
+            self.game_state.show_debug = self.ui_debug;
 
+            ui.checkbox(&mut self.ui_debug, "Show Debug Info");
+            if self.ui_debug {
+                ui.vertical(|ui| {
+                    ui.heading("Debug Info:");
+                    ui.label(format!(
+                        "Phrase to guess: {}",
+                        self.game_state.phrase_to_guess
+                    ));
+                    ui.label(format!(
+                        "Chars to guess: {:?}",
+                        self.game_state.chars_to_guess
+                    ));
+                    ui.label(format!(
+                        "Obfuscated phrase: {}",
+                        self.game_state.obfuscated_phrase
+                    ));
+                    ui.label(format!("Submitted Text: {}", self.submitted_text));
+                    ui.label(format!("Input Text: {}", self.input_text));
+                    ui.label(format!(
+                        "Guessed letters: {:?}",
+                        self.game_state.guessed_letters
+                    ));
+                    ui.label(format!(
+                        "Incorrect guess count: {}",
+                        self.game_state.incorrect_guess_count
+                    ));
+                    ui.label(format!(
+                        "Guesses Left: {}",
+                        self.game_state.difficulty - self.game_state.incorrect_guess_count
+                    ));
+                    ui.label(format!("Difficulty: {}", self.game_state.difficulty));
+                    ui.label(format!("Game over: {}", self.game_state.game_over));
+                    ui.label(format!("Win: {}", self.game_state.win));
+                });
+            }
             // ! END DEBUG CODE!!!!
             if self.game_state.incorrect_guess_count >= self.game_state.difficulty
                 && self.game_state.difficulty != 0

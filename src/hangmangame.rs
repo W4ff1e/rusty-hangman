@@ -19,6 +19,8 @@ pub struct HangmanGameState {
     pub game_over: bool,
     /// Flag indicating if the player has won the game.
     pub win: bool,
+    // Debug Flag
+    pub show_debug: bool,
 }
 
 /// Implement the Default trait for HangmanGameState.
@@ -34,6 +36,7 @@ impl Default for HangmanGameState {
             difficulty: 0, // 6 is "normal difficulty", 4 is "hard difficulty", 8 is "easy difficulty", and 10 is "very easy difficulty"
             game_over: false,
             win: false,
+            show_debug: false,
         }
     }
 }
@@ -55,6 +58,7 @@ impl HangmanGameState {
             difficulty: 0,
             game_over: false,
             win: false,
+            show_debug: false,
         }
     }
 

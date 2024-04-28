@@ -1,5 +1,5 @@
 [package]
-name = "hangman-rust"
+name = "rusty-hangman"
 version = "0.1.0"
 edition = "2021"
 license = "MIT"
@@ -17,3 +17,8 @@ env_logger = { version = "0.11.3", default-features = false, features = [
     "humantime",
 ] }
 rand = "0.8.5"
+
+
+[package.metadata.bundle]
+name = "Rusty Hangman Game"
+identifier = "io.github.w4ff1e.rusty-hangman"
