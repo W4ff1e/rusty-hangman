@@ -4,8 +4,6 @@ A terminal hangman game made using Ratatui. Inspired from a random Youtube Video
 
 [![Build & Release](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml)
 
----
-
 ## Badges
 
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/W4ff1e/rusty-hangman?logo=rust)
@@ -14,31 +12,21 @@ A terminal hangman game made using Ratatui. Inspired from a random Youtube Video
 ![GitHub Repo stars](https://img.shields.io/github/stars/W4ff1e/rusty-hangman?style=flat&logo=Github)
 ![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/W4ff1e/rusty-hangman/total?logo=Github)
 
----
-
 ## Dependencies
 
 Listed in the [Cargo.toml](Cargo.toml)
-
----
 
 ### Executing program
 
 Just run the binary from the release window.
 
----
-
 ## Author
 
 [@W4ff1e](https://github.com/W4ff1e)
 
----
-
 ## License
 
 ![GitHub License](https://img.shields.io/github/license/W4ff1e/rusty-hangman)
-
----
 
 This project is licensed under the MIT License - see the LICENSE.md file for details
 
@@ -48,8 +36,6 @@ Inspiration, code snippets, etc.
 
 * [Wordlist - MIT](https://www.mit.edu/~ecprice/wordlist.10000)
 * [The Rust Book](https://rust-book.cs.brown.edu/ch03-05-control-flow.html#summary)
-
----
 
 # Development
 
@@ -61,7 +47,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them:
 
-- Rust: You can download it from the official website [here](https://www.rust-lang.org/tools/install).
+- Rust: You can download it from the official website [here](https://www.rust-lang.org/tools/install). (Or you can use [Rustup](https://rustup.rs/))
 
 ### Installation
 
@@ -77,8 +63,6 @@ git clone https://github.com/W4ff1e/rusty-hangman.git
 cargo build
 ```
 
----
-
 ## Usage
 
 After building the project, you can run the game with the following command:
@@ -86,8 +70,6 @@ After building the project, you can run the game with the following command:
 ```bash
 cargo run
 ```
-
----
 
 ## Contributing
 
@@ -98,8 +80,6 @@ Contributions are what make the open source community such an amazing place to l
 3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
 4. Push to the Branch (`git push origin feature/AmazingFeature`)
 5. Open a Pull Request
-
----
 
 ## Contact
 
