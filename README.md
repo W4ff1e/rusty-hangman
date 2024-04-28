@@ -1,6 +1,6 @@
 # HangMan Game
 
-A terminal hangman game made using Ratatui. Inspired from a random Youtube Video and [word lists from: MIT](https://www.mit.edu/~ecprice/wordlist.10000)
+A terminal hangman game made using Ratatui. Inspired from a random Youtube Video.
 
 [![Build & Release](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml)
 
@@ -24,4 +24,5 @@ This project is licensed under the MIT License - see the LICENSE.md file for det
 
 Inspiration, code snippets, etc.
 
+* [Wordlist - MIT](https://www.mit.edu/~ecprice/wordlist.10000)
 * [The Rust Book](https://rust-book.cs.brown.edu/ch03-05-control-flow.html#summary)
