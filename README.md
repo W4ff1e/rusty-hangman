@@ -47,7 +47,7 @@ These instructions will get you a copy of the project up and running on your loc
 
 What things you need to install the software and how to install them:
 
-- Rust: You can download it from the official website [here](https://www.rust-lang.org/tools/install). (Or you can use [Rustup](https://rustup.rs/))
+* Rust: You can download it from the official website [here](https://www.rust-lang.org/tools/install). (Or you can use [Rustup](https://rustup.rs/))
 
 ### Installation
 
