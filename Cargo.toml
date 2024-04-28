@@ -5,7 +5,10 @@ edition = "2021"
 license = "MIT"
 authors = ["Waffle <72278085+W4ff1e@users.noreply.github.com>"]
 description = "A simple GUI hangman game written in Rust."
+build = "build.rs"
 
+[target.'cfg(windows)'.build-dependencies]
+winres = "0.1.12"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
@@ -19,20 +22,8 @@ env_logger = { version = "0.11.3", default-features = false, features = [
 ] }
 rand = "0.8.5"
 
-[build-dependencies]
-winres = "0.1.12"
 
-[package.metadata.bundle]
-name = "Rusty Hangman Game"
-identifier = "io.github.w4ff1e.rusty-hangman"
-icon = [
-    "./assets/full-res-icon.png",
-    "./assets/32x32.png",
-    "./assets/64x64.png",
-    "./assets/128x128.png",
-    "./assets/256x256.png",
-    "./assets/512x512.png",
-    "./assets/512x512@2x.png",
-]
-category = "public.app-category.games"
-resources = ["./assets", "./wordlist"]
+[package.metadata.winres]
+OriginalFilename = "rusty-hangman.exe"
+LegalCopyright = "Copyright © 2024"
+#...
