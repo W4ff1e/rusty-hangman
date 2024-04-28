@@ -7,15 +7,15 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug executable 'hangman-rust'",
+            "name": "Debug executable 'rusty-hangman'",
             "cargo": {
                 "args": [
                     "build",
-                    "--bin=hangman-rust",
-                    "--package=hangman-rust"
+                    "--bin=rusty-hangman",
+                    "--package=rusty-hangman"
                 ],
                 "filter": {
-                    "name": "hangman-rust",
+                    "name": "rusty-hangman",
                     "kind": "bin"
                 }
             },
@@ -25,16 +25,16 @@
         {
             "type": "lldb",
             "request": "launch",
-            "name": "Debug unit tests in executable 'hangman-rust'",
+            "name": "Debug unit tests in executable 'rusty-hangman'",
             "cargo": {
                 "args": [
                     "test",
                     "--no-run",
-                    "--bin=hangman-rust",
-                    "--package=hangman-rust"
+                    "--bin=rusty-hangman",
+                    "--package=rusty-hangman"
                 ],
                 "filter": {
-                    "name": "hangman-rust",
+                    "name": "rusty-hangman",
                     "kind": "bin"
                 }
             },

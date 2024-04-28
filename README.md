@@ -2,7 +2,7 @@
 
 A terminal hangman game made using Ratatui. Inspired from a random Youtube Video and [word lists from: MIT](https://www.mit.edu/~ecprice/wordlist.10000)
 
-[![Build & Release](https://github.com/W4ff1e/hangman-rust/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/W4ff1e/hangman-rust/actions/workflows/build.yml)
+[![Build & Release](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml)
 
 ## Dependencies
 

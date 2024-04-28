@@ -12,7 +12,14 @@ fn main() {
 
     // Define the options for the native application
     let options = eframe::NativeOptions {
-        viewport: egui::ViewportBuilder::default().with_inner_size([1280.0, 720.0]),
+        viewport: egui::ViewportBuilder::default()
+            .with_inner_size([1280.0, 720.0])
+            .with_icon(
+                // NOTE: Adding an icon is optional
+                eframe::icon_data::from_png_bytes(&include_bytes!("../assets/256x256.png")[..])
+                    .expect("Failed to load icon"),
+            ),
+
         ..Default::default()
     };
 
