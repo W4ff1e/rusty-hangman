@@ -11,8 +11,8 @@ A terminal hangman game made using Ratatui. Inspired from a random Youtube Video
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/W4ff1e/rusty-hangman?logo=rust)
 ![GitHub Release](https://img.shields.io/github/v/release/W4ff1e/rusty-hangman?logo=Github)
 ![GitHub commit activity](https://img.shields.io/github/commit-activity/m/W4ff1e/rusty-hangman?logo=Github)
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/W4ff1e/rusty-hangman/total?logo=Github)
 ![GitHub Repo stars](https://img.shields.io/github/stars/W4ff1e/rusty-hangman?style=flat&logo=Github)
+![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/W4ff1e/rusty-hangman/total?logo=Github)
 
 ---
 
