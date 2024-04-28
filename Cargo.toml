@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 license = "MIT"
 authors = ["Waffle <72278085+W4ff1e@users.noreply.github.com>"]
+description = "A simple GUI hangman game written in Rust."
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
@@ -22,3 +23,14 @@ rand = "0.8.5"
 [package.metadata.bundle]
 name = "Rusty Hangman Game"
 identifier = "io.github.w4ff1e.rusty-hangman"
+# icon = [
+#     "./assets/full-res-icon.png",
+#     "./assets/32x32.png",
+#     "./assets/64x64.png",
+#     "./assets/128x128.png",
+#     "./assets/256x256.png",
+#     "./assets/512x512.png",
+#     "./assets/512x512@2x.png",
+# ]
+category = "public.app-category.games"
+# resources = ["./assets", "./wordlist"]
