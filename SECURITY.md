@@ -9,7 +9,7 @@
 
 ## Reporting a Vulnerability
 
-If you discover a security vulnerability within this project, please use the GitHub Security Tab or send an email to [@W4ff1e](mailto:72278085+W4ff1e@users.noreply.github.com). All security vulnerabilities will be promptly addressed.
+If you discover a security vulnerability within this project, please use the GitHub Security Tab or send an email to [@W4ff1e](mailto:security@throud.org). All security vulnerabilities will be promptly addressed.
 
 ## Comments on this Policy
 

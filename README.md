@@ -83,7 +83,7 @@ Contributions are what make the open source community such an amazing place to l
 
 ## Contact
 
-Discord - [@w4ff1e](https://discord.com/users/227875168200949761) - Email: [Waffle](mailto:72278085+W4ff1e@users.noreply.github.com)
+Discord - [@w4ff1e](https://discord.com/users/227875168200949761) - Email: [Waffle](mailto:w4ff1e@throud.org)
 
 Project Link: [https://github.com/W4ff1e/rusty-hangman](https://github.com/W4ff1e/rusty-hangman)
 
