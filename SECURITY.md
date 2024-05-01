@@ -2,7 +2,6 @@
 
 ## Supported Versions
 
-
 | Version | Supported          |
 | ------- | ------------------ |
 | 0.1.1   | :white_check_mark: |
@@ -10,4 +9,8 @@
 
 ## Reporting a Vulnerability
 
-Please send me a direct message on either Discord or email and I will fix ASAP. 
+If you discover a security vulnerability within this project, please use the GitHub Security Tab or send an email to [@W4ff1e](mailto:72278085+W4ff1e@users.noreply.github.com). All security vulnerabilities will be promptly addressed.
+
+## Comments on this Policy
+
+If you have suggestions on how this process could be improved please submit a pull request.
