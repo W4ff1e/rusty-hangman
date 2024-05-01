@@ -39,6 +39,7 @@ struct HangmanApp {
     allowed_to_close: bool,         // Flag indicating whether the application is allowed to close
     input_text: String,             // The text entered by the user as input for guessing
     submitted_text: String,         // The text submitted by the user/program as a guess
+    input_phrase: String,           // The phrase entered by the user as input for the game
     ui_debug: bool,                 // Flag indicating whether debug information should be shown
 }
 
@@ -55,6 +56,7 @@ impl HangmanApp {
             allowed_to_close: false,
             input_text: String::new(),
             submitted_text: String::new(),
+            input_phrase: String::new(),
             ui_debug: false,
         }
     }
@@ -163,8 +165,7 @@ impl eframe::App for HangmanApp {
                 ui.add_sized(
                     egui::Vec2::new(30.0, 25.0),
                     egui::TextEdit::singleline(&mut self.input_text),
-                )
-                .request_focus();
+                );
                 if self.input_text.len() > 1 {
                     println!("Input text is too long, truncating...");
                     self.input_text.truncate(1);
@@ -183,6 +184,7 @@ impl eframe::App for HangmanApp {
             });
 
             if !self.submitted_text.is_empty() {
+                println!("Guessing letter: {}", self.submitted_text);
                 ui.label(format!("Guessed letter: {}", self.submitted_text));
                 hangmangame::HangmanGameState::guess_letter(
                     &mut self.game_state,
@@ -211,6 +213,17 @@ impl eframe::App for HangmanApp {
                     }
                 });
             }
+            if self.game_state.phrase_to_guess == "" {
+                ui.horizontal(|ui| {
+                    ui.label("Please enter a phrase/word for the game:");
+                    ui.text_edit_singleline(&mut self.input_phrase);
+                });
+                if ui.button("Submit").clicked() || ctx.input(|i| i.key_pressed(egui::Key::Enter)) {
+                    self.game_state
+                        .update_guess_phrase(self.input_phrase.clone());
+                    self.input_phrase.clear();
+                }
+            }
             // ! DEBUG CODE AHEAD!!!!
             self.game_state.show_debug = self.ui_debug;
 
@@ -232,6 +245,7 @@ impl eframe::App for HangmanApp {
                     ));
                     ui.label(format!("Submitted Text: {}", self.submitted_text));
                     ui.label(format!("Input Text: {}", self.input_text));
+                    ui.label(format!("Input Phrase: {}", self.input_phrase));
                     ui.label(format!(
                         "Guessed letters: {:?}",
                         self.game_state.guessed_letters
@@ -250,23 +264,23 @@ impl eframe::App for HangmanApp {
                 });
             }
             // ! END DEBUG CODE!!!!
-            if self.game_state.incorrect_guess_count >= self.game_state.difficulty
-                && self.game_state.difficulty != 0
-                && self.game_state.phrase_to_guess != ""
-            {
-                self.game_state.game_over = true;
-                self.game_state.win = false;
-            }
-            if self
-                .game_state
-                .chars_to_guess
-                .iter()
-                .all(|c| self.game_state.guessed_letters.contains(c))
-                && self.game_state.phrase_to_guess != ""
-            {
-                self.game_state.game_over = true;
-                self.game_state.win = true;
-            }
+            //// if self.game_state.incorrect_guess_count >= self.game_state.difficulty
+            ////     && self.game_state.difficulty != 0
+            ////     && self.game_state.phrase_to_guess != ""
+            //// {
+            ////     self.game_state.game_over = true;
+            ////     self.game_state.win = false;
+            //// }
+            //// if self
+            ////     .game_state
+            ////     .chars_to_guess
+            ////     .iter()
+            ////     .all(|c| self.game_state.guessed_letters.contains(c))
+            ////     && self.game_state.phrase_to_guess != ""
+            //// {
+            ////     self.game_state.game_over = true;
+            ////     self.game_state.win = true;
+            //// }
         });
 
         if self.game_state.game_over {

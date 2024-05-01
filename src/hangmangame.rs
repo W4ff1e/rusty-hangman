@@ -148,15 +148,38 @@ impl HangmanGameState {
     ///
     /// * `phrase` - The new phrase to guess.
     ///
-    #[allow(dead_code)]
     pub fn update_guess_phrase(&mut self, phrase: String) {
         let phrase = phrase.to_uppercase();
         self.chars_to_guess = phrase.chars().collect();
         self.phrase_to_guess = phrase;
         self.obfuscate_phrase();
+        self.guessed_letters.clear();
+        self.incorrect_guess_count = 0;
     }
 
-    #[allow(dead_code)]
+    pub fn check_win_or_loss(&mut self) {
+        let chars_to_guess_without_whitespace: Vec<char> = self
+            .chars_to_guess
+            .iter()
+            .filter(|c| !c.is_whitespace())
+            .cloned()
+            .collect();
+        println!("{:?}", chars_to_guess_without_whitespace);
+        if chars_to_guess_without_whitespace
+            .iter()
+            .all(|c| self.guessed_letters.contains(c))
+        {
+            self.win = true;
+            self.game_over = true;
+        } else if self.difficulty <= self.incorrect_guess_count
+            && self.difficulty != 0
+            && self.phrase_to_guess != ""
+        {
+            self.win = false;
+            self.game_over = true;
+        }
+    }
+
     /// Guess a letter in the hangman game.
     ///
     /// # Arguments
@@ -180,22 +203,13 @@ impl HangmanGameState {
         // Check if the guessed letter is in the phrase
         if self.chars_to_guess.contains(&guess) {
             // Check if all the characters in the phrase have been guessed
-            if self
-                .chars_to_guess
-                .iter()
-                .all(|c| self.guessed_letters.contains(c))
-            {
-                self.win = true;
-                self.game_over = true;
-            }
+            self.check_win_or_loss();
         } else {
             // Increment the incorrect guess count
             self.incorrect_guess_count += 1;
 
             // Check if the maximum incorrect guess count has been reached
-            if self.incorrect_guess_count >= self.difficulty {
-                self.game_over = true;
-            }
+            self.check_win_or_loss()
         }
     }
 }
