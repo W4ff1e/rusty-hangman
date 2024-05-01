@@ -2336,7 +2336,7 @@ dependencies = [
 
 [[package]]
 name = "rusty-hangman"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "eframe",
  "env_logger",

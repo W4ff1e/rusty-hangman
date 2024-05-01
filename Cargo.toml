@@ -1,6 +1,6 @@
 [package]
 name = "rusty-hangman"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2021"
 license = "MIT"
 authors = ["Waffle <72278085+W4ff1e@users.noreply.github.com>"]
