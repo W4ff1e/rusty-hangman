@@ -1,6 +1,6 @@
 # Rusty Hangman
 
-A terminal hangman game made using Ratatui. Inspired from a random Youtube Video.
+A terminal hangman game made using eframe & egui. Inspired from a random Youtube Video.
 
 [![Build & Release](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml/badge.svg?event=release)](https://github.com/W4ff1e/rusty-hangman/actions/workflows/build.yml)
 
